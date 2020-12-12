@@ -53,7 +53,7 @@ public class TicTacToe {
                 System.out.println("Enter the numbers in the same line, separated by a space! ");
                 ValidInput = false;
                 continue;
-            }
+            } 
         
             for (int i = 0; i < 2; i++){
                 if (InputCell[i] != 1 && InputCell[i] != 2 && InputCell[i] != 3) {
@@ -82,38 +82,25 @@ public class TicTacToe {
     }
 
     public void SetUpTheGame() {
-        String StringCells = "";
-        StringCells = CheckStringCompletion(StringCells);
-        ConvertStringToArray(StringCells);
-        DrawInitialBoard(StringCells);
+        SetUpArray();
+        DrawInitialBoard(Board);
     }
 
-    public String CheckStringCompletion(String StringCells) {
-        if (StringCells.length() < 9) {
-            for(int i = StringCells.length(); i < 9; i++) {
-                StringCells = StringCells.concat(" ");
-            }
-        }
-        return StringCells;
-    }
-
-    public void ConvertStringToArray(String StringCells) {
+    public void SetUpArray() {
         for (int i = 0; i < 3; i++) {   
             for (int j = 2; j >= 0; j--) {
-                Board[j][i] = StringCells.charAt(i + 3*j);
+                Board[j][i] = ' ';
             }
         }
     }
 
-    public void DrawInitialBoard(String StringCells) {
+    public void DrawInitialBoard(char[][] Board) {
         System.out.println("---------");
         for (int i = 0; i < 3; i++) {   
             System.out.print("| ");
-
-            for (int j = 3 * i; j < 3 * i + 3; j++) {
-                System.out.print(StringCells.charAt(j) + " ");
+            for (int j = 0; j < 3; j++) {
+                System.out.print(Board[j][i] + " ");
             }
-
             System.out.print("|\n");
         }
         System.out.println("---------");
@@ -137,14 +124,7 @@ public class TicTacToe {
         int MovesPlayed = 0;
 
         MovesPlayed = CountMoves();
-        System.out.println("MovesPlayed : " + MovesPlayed);
         CountWins();
-        System.out.println("xCount : " + xCount);
-        System.out.println("oCount : " + oCount);
-
-        System.out.println("xWins : " + xWins);
-        System.out.println("oWins : " + oWins);
-
 
         if(Math.abs(xCount - oCount) > 1) {     
             CurrentState = GameState.Impossible;
